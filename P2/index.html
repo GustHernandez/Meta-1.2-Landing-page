@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Sitio web </title>
+        <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+        /* Estilos personalizados para el tamaño de las cards, tablas y botones*/
+            .mi-card{
+                height: 300px;
+                object-fit: cover;
+            }
+
+            table, td, th {
+                border: 1px solid;
+                padding: 10px;
+            }
+
+            table{
+                border-collapse: collapse;
+            }
+            
+            .mi-tabla th{
+                background-color: #884312;
+            }
+            .mi-tabla td{
+                background-color: #c46826;
+            }
+                 
+            .mi-boton{
+                justify-content: center;
+                background-color: rgb(128, 72, 32);
+                color: white;
+                border: none;
+            }
+            
+            .mi-boton:hover{
+                background-color: #D2691E;
+            }
+            
+            .btn-primary{
+                background-color: rgb(128, 72, 32);
+            }
+
+            .btn-primary:hover{
+                background-color: #D2691E;
+            }
+
+            .btn-secondary{
+                background-color: rgb(128, 72, 32);
+            }
+
+            .btn-secondary:hover{
+                background-color: #D2691E;
+            }
+
+            body, html{
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            .mi-footer{
+                width: 100vw;
+                background-color: #884312;
+                color: white;
+                text-align: center;
+                padding: 20px 20px;
+                margin-left: calc(50% - 50vw);
+            }
+
+        </style>
+    </head>
+    <body>
+        <!-- Script para utilizar Bootstrap -->>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+        </script>       
+        <!-- Encabezado con una imagen de fondo -->> 
+        <div class="card text-center text-white"> 
+            <img src="https://www.salyroca.es/media/salyroca/images/2020/06/24/2020062410124155946.jpg" class="card-img mi-card" alt="...">
+            <div class ="card-img-overlay d-flex justify-content-center align-items-center">
+                <h1 class="card-title">Bienvenido a Mi Sitio Web</h1>
+            </div>
+        </div>
+        <!-- Contenedor con dos tarjetas, que genera una imagen aleatoria, además que se agregaron botones para cambiar la imange de forma aleatoria-->>
+        <div class="container mt-4">
+            <div class = "row">
+                <div class = "col-md-4">
+                    <div class="card">
+                        <img id="img1" src="https://picsum.photos/250/150?random=1" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Titulo de la Tarjeta 1</h5>
+                            <p class="card-text">Este es un texto descriptivo para la tarjeta 1.</p>
+                            <button class="btn btn-primary" onclick="cambiarImagen('img1')">Cambiar Imagen</button>
+
+                        </div>
+                    </div>
+                </div>                 
+                <div class = "col-md-4">
+                    <div class="card">
+                        <img id="img2" src="https://picsum.photos/250/150?random=2" class="card-img-top" alt="...">   
+                        <div class="card-body">
+                            <h5 class="card-title">Titulo de la Tarjeta 2</h5>
+                            <p class="card-text">Este es un texto descriptivo para la tarjeta 2.</p>
+                            <button class="btn btn-secondary" onclick="cambiarImagen('img2')">Cambiar Imagen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contenedor con una tabla que muestra información de ejemplo -->
+        <div class="container mt-4">
+            <div class="row-md-6">
+                <div class="col-md-12">
+                    <div class ="table-responsive">
+                        <table class = "table table-striped table-hover mi-tabla">
+                            <thead>
+                                <tr>
+                                    <th>Columna 1</th>
+                                    <th>Columna 2</th>
+                                    <th>Columna 3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Valor 1</td>
+                                    <td>Valor 2</td>
+                                    <td>Valor 3</td>
+                                </tr>
+                                <tr>
+                                    <td>Valor 4</td>
+                                    <td>Valor 5</td>
+                                    <td>Valor6</td>
+                        </table>
+                    </div>
+                </div>
+        </div>  
+        <!-- Botón -->>
+        <div class = "container mt-4">
+            <div class = "text-center ">
+                <button type="button" class="btn mi-boton">Enviar</button>
+            </div>
+        </div>
+        <!-- Píe de página -->
+        <div class="container mt-4"></div>
+        <footer class="mi-footer">
+            <p class="text-center mb-0">© 2026 Mi Sitio Web. Todos los derechos reservados.</p>
+        </footer>
+
+        <script>
+            /*
+             * Función que permite generar una nueva imagen aleatoria cuando se presiona algún botón de las tarjetas
+             */
+            function cambiarImagen(id){
+                let numeroRandom = Math.floor(Math.random() * 1000);
+                document.getElementById(id).src = "https://picsum.photos/250/150?random=" + numeroRandom;
+               
+            }
+        </script>
+    </body>   
+</html>
