@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Sitio web </title>
+        <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+        /* Estilos personalizados para el tamaño de las cards, tablas y botones*/
+            .mi-card{
+                height: 300px;
+                object-fit: cover;
+            }
+
+            table, td, th {
+                border: 1px solid;
+                padding: 10px;
+            }
+
+            table{
+                border-collapse: collapse;
+            }
+            
+            .mi-tabla th{
+                background-color: #884312;
+            }
+            .mi-tabla td{
+                background-color: #c46826;
+            }
+                 
+            .mi-boton{
+                justify-content: center;
+                background-color: rgb(128, 72, 32);
+                color: white;
+                border: none;
+            }
+            
+            .mi-boton:hover{
+                background-color: #D2691E;
+            }
+            
+            .btn-primary{
+                background-color: rgb(128, 72, 32);
+            }
+
+            .btn-primary:hover{
+                background-color: #D2691E;
+            }
+
+            .btn-secondary{
+                background-color: rgb(128, 72, 32);
+            }
+
+            .btn-secondary:hover{
+                background-color: #D2691E;
+            }
+
+            body, html{
+                width: 100%;
+                overflow-x: hidden;
+            }
+
+            .mi-footer{
+                width: 100vw;
+                background-color: #884312;
+                color: white;
+                text-align: center;
+                padding: 20px 20px;
+                margin-left: calc(50% - 50vw);
+            }
+
+        </style>
+    </head>
+    <body>
+        <!-- Script para utilizar Vue.js -->
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>        
+        
+        <!-- Contenedor principal VUE -->
+        <div id="app" class="container mt-6">
+            <!-- Encabezado -->>
+            <app-header
+                titulo = "Bienvenido a Mi Sitio Web"
+                imagen = "https://www.salyroca.es/media/salyroca/images/2020/06/24/2020062410124155946.jpg">
+            </app-header>
+            
+            <!-- Fila con dos tarjetas -->
+            <div class="row mt-4">
+                <!-- Primera tarjeta -->
+                <div class="col-md-5">
+                    <tarjeta-con-imagen titulo="Título de la Tarjeta 1" texto="Este es un texto descriptivo para la tarjet 1. Puedes agregar cualquier contenido que desees aquí" :random-inicial="1"></tarjeta-con-imagen>
+                </div> 
+                <!-- Segunda tarjeta -->
+                <div class="col-md-5">
+                    <tarjeta-con-imagen titulo="Título de la Tarjeta 2" texto="Este es un texto descriptivo para la tarjeta 2. Puedes agregar cualquier contenido que desees aquí" :random-inicial="2"></tarjeta-con-imagen>
+                </div>
+            </div>
+            
+            <!-- Tabla de datos -->
+            <tabla-de-datos></tabla-de-datos>
+            
+            <!-- Botón -->
+            <div class = "container mt-4">
+                <div class = "text-center ">
+                    <button type="button" class="btn mi-boton">Enviar</button>
+                </div>
+            </div>
+            <!-- Píe de página -->
+            <div class="container mt-4"></div>
+            <app-footer></app-footer>
+        </div>
+       
+        <script>
+            // Extremos createApp de Vue para crear la aplicación y definir los componentes personalizados
+            const { createApp } = Vue;
+            const app = createApp({});
+            // Componente para la tarjeta con imagen y título
+            app.component('tarjeta-con-imagen', {
+                props: ['titulo', 'texto', 'randomInicial'], 
+                data(){
+                    return{
+                        numeroRandom: this.randomInicial
+                    }
+                }, 
+                // Método para cambiar la imagen generando un nuevo número aleatorio
+                methods: {
+                    cambiarImagen(){
+                        this.numeroRandom = Math.floor(Math.random() * 1000);
+                    }
+                },
+                // Plantilla para la tarjeta con imagen, título, texto y botón para cambiar la imagen
+                template: `
+                    <div class="card">
+                        <img :src="'https://picsum.photos/250/150?random=' + numeroRandom" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ titulo }}</h5>
+                            <p class="card-text">{{ texto }}</p>    
+                            <button class="btn btn-primary" @click="cambiarImagen">Cambiar Imagen</button>
+                        </div>
+                    </div>
+                    `
+            });
+            // Componente para el pie de página con un mensaje de derechos reservados
+            app.component('app-footer', {
+                template: `
+                    <footer class="mi-footer">
+                        <p>© 2026 Mi Sitio Web. Todos los derechos reservados.</p>
+                    </footer>
+                `
+            });
+            // Componente para el encabezado con una imagen de fondo y un título superpuesto
+            app.component('app-header',{
+                props: ['titulo', 'imagen'],
+                template: `
+                   <div class="card text-center text-white">
+                        <img :src="imagen" class="card-img mi-card" alt="header">
+                        <div class="card-img-overlay d-flex flex-column justify-content-center">
+                            <h1 class="card-title display-4">{{ titulo }}</h1>
+                        </div>
+                    </div>
+                `
+            });
+            // Componente para la tabla de datos con encabezados y filas dinámicas
+            app.component('tabla-de-datos',{
+                data(){
+                    return{
+                        datos: ['Columna 1', 'Columna 2', 'Columna 3'],
+                        filas: [
+                            ['Valor 1', 'Valor 2', 'Valor 3'],
+                            ['Valor 4', 'Valor 5', 'Valor 6']
+                        ]
+                    }
+                }, 
+                template: `
+                    <div class="container mt-5">
+                        <div class="table-responsive">
+                            <table class="mi-tabla w-100">
+                                <thead>
+                                    <tr>
+                                        <th v-for="dato in datos" :key="dato">{{ dato }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(fila, index) in filas" :key="index">
+                                        <td v-for="(valor, idx) in fila" :key="idx">{{ valor }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                `
+            });
+            app.mount('#app');
+        </script>
+    </body>   
+</html>
